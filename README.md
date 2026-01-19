@@ -23,7 +23,7 @@ This project demonstrates **Java OOP**, **Swing GUI**, and **event-driven progra
 
 ## 🖥️ Screenshots
 https://github.com/UshaSudulaguntla-11/MINIBANK/blob/main/assets/image1.png
-
+https://github.com/UshaSudulaguntla-11/MINIBANK/blob/main/assets/image2.png
 
 ## ⚙️ Features in Detail
 
