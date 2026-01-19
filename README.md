@@ -58,12 +58,19 @@ Image2:https://github.com/UshaSudulaguntla-11/MINIBANK/blob/main/assets/image2.p
 ---
 📂 Folder Structure
 MiniBank/
+
 ├── src/                  # All Java source files
+
 │   ├── Account.java
+
 │   ├── Bank.java
+
 │   ├── BankGUI.java
+
 │   └── Main.java
+
 ├── README.md             # Project documentation
+
 └── .gitignore            # Ignored files (compiled classes, IDE config)
 
 ## 📝 How to Run
