@@ -291,25 +291,35 @@ public class BankGUI extends JFrame {
         dep.addActionListener(e -> {
             String val = showInputDialog("Amount to deposit:");
             if (val != null) {
-                try {
-                    double amt = Double.parseDouble(val);
-                    currentAccount.deposit(amt);
-                    bank.saveAccounts();
-                    animateBalance(currentAccount.getBalance());
-                } catch (Exception ex) { showToast("INVALID AMOUNT", ERROR_RED); }
+                String pwd = showInputDialog("Enter password to confirm deposit:");
+                if (pwd != null && currentAccount.checkPassword(pwd)) {
+                    try {
+                        double amt = Double.parseDouble(val);
+                        currentAccount.deposit(amt);
+                        bank.saveAccounts();
+                        animateBalance(currentAccount.getBalance());
+                    } catch (Exception ex) { showToast("INVALID AMOUNT", ERROR_RED); }
+                } else if (pwd != null) {
+                    showToast("INCORRECT PASSWORD", ERROR_RED);
+                }
             }
         });
 
         wit.addActionListener(e -> {
             String val = showInputDialog("Amount to withdraw:");
             if (val != null) {
-                try {
-                    double amt = Double.parseDouble(val);
-                    if (currentAccount.withdraw(amt)) {
-                        bank.saveAccounts();
-                        animateBalance(currentAccount.getBalance());
-                    } else { showToast("INSUFFICIENT FUNDS", ERROR_RED); }
-                } catch (Exception ex) { showToast("INVALID AMOUNT", ERROR_RED); }
+                String pwd = showInputDialog("Enter password to confirm withdrawal:");
+                if (pwd != null && currentAccount.checkPassword(pwd)) {
+                    try {
+                        double amt = Double.parseDouble(val);
+                        if (currentAccount.withdraw(amt)) {
+                            bank.saveAccounts();
+                            animateBalance(currentAccount.getBalance());
+                        } else { showToast("INSUFFICIENT FUNDS", ERROR_RED); }
+                    } catch (Exception ex) { showToast("INVALID AMOUNT", ERROR_RED); }
+                } else if (pwd != null) {
+                    showToast("INCORRECT PASSWORD", ERROR_RED);
+                }
             }
         });
 
@@ -317,13 +327,18 @@ public class BankGUI extends JFrame {
             String target = showInputDialog("Recipient ID:");
             String amtStr = showInputDialog("Amount to transfer:");
             if (target != null && amtStr != null) {
-                try {
-                    int toId = Integer.parseInt(target);
-                    double amt = Double.parseDouble(amtStr);
-                    if (bank.transfer(currentAccount.getId(), toId, amt)) {
-                        animateBalance(currentAccount.getBalance());
-                    } else { showToast("TRANSFER FAILED", ERROR_RED); }
-                } catch (Exception ex) { showToast("ERROR", ERROR_RED); }
+                String pwd = showInputDialog("Enter password to confirm transfer:");
+                if (pwd != null && currentAccount.checkPassword(pwd)) {
+                    try {
+                        int toId = Integer.parseInt(target);
+                        double amt = Double.parseDouble(amtStr);
+                        if (bank.transfer(currentAccount.getId(), toId, amt)) {
+                            animateBalance(currentAccount.getBalance());
+                        } else { showToast("TRANSFER FAILED", ERROR_RED); }
+                    } catch (Exception ex) { showToast("ERROR", ERROR_RED); }
+                } else if (pwd != null) {
+                    showToast("INCORRECT PASSWORD", ERROR_RED);
+                }
             }
         });
 
